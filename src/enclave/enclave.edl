@@ -1,0 +1,101 @@
+/* Copyright (c) 2018 Aalto University
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* sample enclave.edl - Top EDL file. */
+
+enclave {
+    from "sgx_tae_service.edl" import *; // for pse sessions
+    from "nrt_tke.edl" import *;
+
+    include "sgx_tcrypto.h"
+    include "stdbool.h"
+    include "datatypes.h"
+
+    untrusted {
+        void ocall_log([in, string] const char *str);
+
+        void ocall_http_io([in, string] const char *input, [out, size=max_output_size] char *output, [out] size_t* output_size, size_t max_output_size);
+
+        void ocall_print_byte_array([in, size=len] const void* mem, uint32_t len);
+    };
+
+
+    trusted {   
+        /*
+         * ECALL to set logging level of this enclave
+         */
+        public void ecall_set_logging(bool logging, bool debug);
+
+
+        /*
+         * Shutdown function to close ECC and PSE sessions.
+         */
+        public JS_STATUS ecall_shutdown();
+
+        /*
+         * Initialize the enclave by provisioning it with 
+         * previously created keys.
+         */
+        public JS_STATUS ecall_initialize_provision(
+            nrt_ra_context_t context,
+            [out, size=buffer_size] void* buffer, 
+            uint32_t buffer_size,
+            [in, size=msg_size] void* msg_p, 
+            uint32_t msg_size);
+
+        /*
+         *  Initialize the enclave by reloading a sealed buffer.
+         */
+        public JS_STATUS ecall_initialize_reload(
+            [in, size=buffer_size] void* buffer, 
+            uint32_t buffer_size);
+
+        /*
+         * Setting up the enclave by generating keys.
+         * This returns a sealed buffer AND contacts provisioning enclave
+         */
+        public JS_STATUS ecall_setup(
+            [out, size=buffer_size] void* buffer, 
+            uint32_t buffer_size, 
+            [out] sgx_ec256_public_t* signing_pk, 
+            [out] sgx_ec256_public_t* dh_pk, 
+            [out] sgx_ec256_public_t* resource_pk);
+
+        public uint32_t ecall_get_persistent_buffer_size();
+
+        public JS_STATUS ecall_script_init([in, size=script_len] const char* script, size_t script_len);
+
+        public JS_STATUS ecall_script_run(
+            [in, string] const char* input, 
+            [out] size_t* output_size,
+            [out] size_t* measurement_size);
+
+        public JS_STATUS ecall_script_finish(
+            [out, size=output_length] char* output,
+            size_t output_length,
+            [out, size=measurement_size] resource_measurement_t* measurements,
+            size_t measurement_size,
+            [out] sgx_ec256_signature_t* measurement_signature
+        );
+
+        public int ecall_enclave_init_ra( int b_pse, [out] nrt_ra_context_t *p_context );
+
+        public void* ecall_tsx_get_addr( void );
+        public int ecall_counter( );
+
+        public int ecall_set_worker_ssa( [out] void** p_thread,
+                                         [out, size=8] uint64_t* cssa);
+    };
+};
