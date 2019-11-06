@@ -1,3 +1,7 @@
+# Trustworthy & Accountable Function-as-a-Service 
+This is the source code repository of the paper "S-FaaS: Trustworthy and Accountable Function-as-a-Service using Intel SGX", published at the 2019 ACM Cloud Computing Security Workshop. An early version of this paper can be viewed here on arxiv: https://arxiv.org/abs/1810.06080
+
+
 # Installation
 
 The enclave uses Duktape as JS Engine. If the project does not compile for you, you might have to generate the Duktape files for your own machine. Do this by downloading its code from https://github.com/svaarala/duktape and executing the configure.py in the tools folder. This generates the Duktape files that you can then place in the src/enclave/duktape folder.
