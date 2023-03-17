@@ -1,0 +1,7 @@
+{
+    "input":{
+        "iterations":10
+    },
+    "nonce":"Nonce123",
+    "sign-output":true
+}

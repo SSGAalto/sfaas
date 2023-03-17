@@ -78,7 +78,7 @@ $(shell   mkdir -p $(Build_Dir)/net)
 $(shell   mkdir -p $(Build_Dir)/logger)
 $(shell   mkdir -p $(Build_Dir)/app)
 
-Common_Include = ../common/include
+Common_Include = ./common/include
 
 Utils_Dir := ../sgx-utils/libs
 Lib_NrtTke := $(Utils_Dir)/lib_tke

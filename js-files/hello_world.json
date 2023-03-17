@@ -1,0 +1,7 @@
+{
+    "input":{
+        "name":"Bob"
+    },
+    "nonce":"Nonce123",
+    "sign-output":true
+}

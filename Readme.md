@@ -59,7 +59,7 @@ make all
 
 # In another console, prepare the client input
 cd tsx-py/tsx
-python3 client.py -i ../../js_app/js-files/hello_world.json -k ../../js_app/js-files/keys.json -o ../../js_app/js-files/enc.json -v
+python3 client.py -i ./js-files/hello_world.json -k ./js-files/keys.json -o ./js-files/enc.json -v
 
 # Now run js app in first console
 ./js-tsx -r "keys.sealed" -x js-files/hello_world.js -i js-files/enc.json  -v

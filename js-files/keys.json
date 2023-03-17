@@ -1,0 +1,16 @@
+{
+    "keys" : {
+        "measurements_pk" : {
+            "gx" : "6qGetTrsJjRj61hD6QMf29ey/f4rXUgdRJs7KD268n4=",
+            "gy" : "sv5d/poO4L074V8gKJK7DsGO/2ISr5T0eY9X6ZrjpRo="
+        },
+        "session_dh" : {
+            "gx" : "3N6pI9uh9UUvoN2pGgNaxhfIQDY8K0knrwZiyWZgUvU=",
+            "gy" : "k9Xjr3DNPEU64PA73ZWpeiIs30ZSZH/UwclXz7amur8="
+        },
+        "signing_pk" : {
+            "gx" : "JrSwcyaRnPfE5b1chGUcD9ck6ZBoIcuE/rpc6JJMqSk=",
+            "gy" : "A+NuZzjiHQCBDy0bB4RrhIWYLIXFM1y4/MJuwGvNyA8="
+        }
+    }
+}
